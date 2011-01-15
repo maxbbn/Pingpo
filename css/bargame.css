@@ -71,7 +71,7 @@ body {
 }
 .btn {
 	display: inline-block;
-	background: url(../btn.bg.png) repeat-x 0px 0px;
+	background: url(../assets/btn.bg.png) repeat-x 0px 0px;
 	padding:5px 10px 6px 10px;
 	font-weight:bold;
 	text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
