@@ -1,0 +1,126 @@
+body {
+	background:#111;
+	color :#0096ff;
+}
+.table {
+	background:#000;
+    width:800px;
+    height:600px;
+}
+.cc {
+    height:600px;
+}
+.players {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+}
+.players .player {
+	padding:2px;
+	width : 10em;
+	text-align:center;
+	list-style:none;
+}
+.players .me {
+	font-weight:bold;
+}
+.players .p1 {
+	float:left;
+}
+.players .p2 {
+	float:right;
+}
+.players .ready {
+	background:#0096ff;
+	color:#fff;
+}
+.room {
+	margin:5px auto 0;
+	width:800px;
+	position:relative;
+}
+.actions {
+	text-align:center;
+	display:none;
+	position:absolute;
+	top:400px;
+	width:780px;
+	padding:10px;
+	background:rgba(96,163,217,.6)
+}
+.actions button {
+	padding:1px 5px;
+}
+.about {
+	color:#004e85;
+}
+.login {
+	position:fixed;
+	padding:30px 20px;
+	background:rgba(100,100,100,0.6);
+	top:30%;
+	right:200px;
+	border:1px solid #ddd;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 0px 20px rgba(220,220,220,0.6);
+	-moz-box-shadow: 0px 0px 20px rgba(220,220,220,0.6);
+	box-shadow: 0px 0px 20px rgba(220,220,220,0.6);
+}
+.btn {
+	display: inline-block;
+	background: url(../btn.bg.png) repeat-x 0px 0px;
+	padding:5px 10px 6px 10px;
+	font-weight:bold;
+	text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
+	border:1px solid rgba(0,0,0,0.4);
+	-moz-border-radius: 5px;
+	-moz-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+	-webkit-border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+}
+ 
+.btn:hover {
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+	cursor:pointer;
+}
+ 
+/* COLOR VARIATIONS */
+ 
+.blue		{background-color: #CCCCCC; color: #141414;}
+.blue:hover	{background-color: #00c0ff; color: #ffffff;}
+ 
+.green		{background-color: #CCCCCC; color: #141414;}
+.green:hover{background-color: #8aff00; color: #ffffff;}
+ 
+.red		{background-color: #CCCCCC; color: #141414;}
+.red:hover	{background-color: #ff004e; color: #ffffff;}
+
+
+.name {
+	font-size:16px;
+	background:rgba(99,99,99,0.6);
+	border:1px solid rgba(255,255,255,0.4);
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin-right:8px;
+	padding:5px;
+	color:#007dc2;
+}
+.name:hover {
+	background:rgba(110,110,110,0.8);
+}
+.name:focus {
+	outline:none;
+	border:1px solid transparent;
+	-moz-box-shadow:0px 0px 5px rgba(0,110,171,0.9);
+	-webkit-box-shadow:0px 0px 5px rgba(0,110,171,0.9);
+	box-shadow:0px 0px 5px rgba(0,110,171,0.9);
+	background:rgba(20,20,20,0.9);
+}
+.error {
+	color:red;
+}
