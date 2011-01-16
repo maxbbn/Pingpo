@@ -80,8 +80,7 @@ Pingpo.add("canvas~effect",function(P){
                 step_offset : 80,
                 step_range : 10,
                 points_len : 50,
-                points_Intensity : 0.6,
-
+                points_Intensity : 0.6
             },
             "fire" : {
                 points_Intensity : 0.8,
@@ -210,12 +209,21 @@ Pingpo.add("canvas~effect",function(P){
 
     function Snow(ctx, rendername){
         Snow.superclass.constructor.call(this, ctx, rendername);
+        var self = this;
         this.length = 0;
+        this.img_snow = new Image();
+        this.img_snow.src = "assets/snow.png";
+        self.loaded= false;
+        this.img_snow.onload = function(){
+            self.loaded = true;
+        }
     }
     S.extend(Snow,Effect,{
         render : function(x,y){
             this.addPoint();
-            this.doDraw();
+            if(this.loaded){
+                this.doDraw();
+            }
         },
         addPoint : function(){
             var l = this.points.length,sb,a,
@@ -240,9 +248,9 @@ Pingpo.add("canvas~effect",function(P){
                     a = .8;
                     sb = 0;
                 }else{
-                    w = 5;
-                    a = .3;
-                    sb = 0;
+                    w = 6;
+                    //a = .3;
+                    //sb = 0;
                     y = Math.random()*600;
                     x = rd>0.05?0:800;
                     sx = (rd - 0.05)*(10)-(x-400)/400;
@@ -271,14 +279,17 @@ Pingpo.add("canvas~effect",function(P){
                 sy = p.sy;
                 w = p.w;
                 sb = p.sb;
-                alpha = p.a;
-                ctx.shadowColor = "#fff";
-                ctx.shadowBlur = sb;
-                ctx.fillStyle = "rgba(250,250,250,"+alpha+")";
-                ctx.beginPath();
-                ctx.arc(x, y, w, 0, Math.PI*2, true);
-                ctx.closePath();
-                ctx.fill();
+                if(w == 6){
+                   ctx.drawImage(this.img_snow,x - 15,y-15);
+                }else {
+                    alpha = p.a;
+                    ctx.shadowColor = "#fff";
+                    ctx.fillStyle = "rgba(250,250,250,"+alpha+")";
+                    ctx.beginPath();
+                    ctx.arc(x, y, w, 0, Math.PI*2, true);
+                    ctx.closePath();
+                    ctx.fill();
+                }
                 if(x<0 || x>800 || y>600){
                     this.points.splice(i,1)
                     this.length--;

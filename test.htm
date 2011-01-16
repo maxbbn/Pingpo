@@ -2,19 +2,13 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>home</title>
+	<title>Snow</title>
 	<link rel="stylesheet" href="http://a.tbcdn.cn/s/kissy/1.1.6/cssreset/reset-min.css" />
 	<link rel="stylesheet" href="css/bargame.css" />
 	<script type="text/javascript" src="http://a.tbcdn.cn/s/kissy/1.1.6/kissy-min.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
-    <script>
-        Pingpo.use("app",function(P){
-            new P.App({
-                loadpath : "js/",
-                wsurl : "auto"
-            });
-        })
-    </script>
+	<script type="text/javascript" src="js/mod~fps.js"></script>
+	<script type="text/javascript" src="js/effect.js"></script>
 </head>
 
 <body>
@@ -23,12 +17,10 @@
 			<canvas id="J_Screen" class="table" width="800" height="600"></canvas>
 		</div>
 		<ul>
-			<li>移动鼠标 <a href="#" id="showbg">bg</a></li>
+			<li><input id="imageurl" name="image" type="text" value="http://farm5.static.flickr.com/4035/4367653308_565b8a405d_b.jpg" size="100" /><a href="javascript:void(0)" id="showbg">set image</a></li>
 			<li id="effetcs"></li>
 		</ul>
 	</div>
-    <script>
-        Pingpo.use("pp~test");
-    </script>
+	<script type="text/javascript" src="js/test.js"></script>
 </body>
 </html>

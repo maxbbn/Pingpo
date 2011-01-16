@@ -1,20 +1,20 @@
-Pingpo.use("pp~effect", function(P){
+KISSY.ready(function(){
     var S = KISSY,
+        P = Pingpo,
         Dom = S.DOM,
         Event = S.Event,
         els = Dom.get("#J_Screen"),
         ctx = els.getContext("2d"),
         offset = [800,0],
         bg = new Image(),
-        bgloaded = false;
-        bgshow = false;
-        bg.src = "assets/house.jpg",
-        //effect = new P.effect.PathEffect(ctx,"default");
+        bgloaded = false,
         effect = new P.effect.Snow(ctx,"default");
 
     bg.onload = function(){
         bgloaded = true;
     };
+    bg.src = Dom.get("#imageurl").value;
+
     function FPS(){};
     S.augment(FPS,P.mods.fps);
     var fps = new FPS();
@@ -25,8 +25,8 @@ Pingpo.use("pp~effect", function(P){
     },10);
     var frame = function(){
         ctx.clearRect(0,0,800,600);
-        if(bgshow && bgloaded){
-            ctx.drawImage(bg,0,0,800,600);
+        if(bgloaded){
+            ctx.drawImage(bg,0,0);
         }
         var x = offset[0],
             y = offset[1];
@@ -41,7 +41,7 @@ Pingpo.use("pp~effect", function(P){
         offset[1] = e.layerY;
     });
     Event.on("#showbg","click", function(){
-        bgshow = !bgshow;
-        console.log("bgshow",bgshow);
+        bg.bgloaded = false;
+        bg.src = Dom.get("#imageurl").value;
     });
 });
