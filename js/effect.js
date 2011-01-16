@@ -239,18 +239,16 @@ Pingpo.add("canvas~effect",function(P){
                 x  = Math.random()*800;
                 y = 0;
                 if(rd>0.2){
-                    w = 1;
-                    a = 1.0;
-                    sb = 0;
-                    sy = 1;
-                }else if(rd>0.1){
                     w = 2;
-                    a = .8;
+                    a = 0.8;
+                    sb = 0;
+                    sy = .4;
+                }else if(rd>0.1){
+                    w = 3;
+                    a = .6;
                     sb = 0;
                 }else{
                     w = 6;
-                    //a = .3;
-                    //sb = 0;
                     y = Math.random()*600;
                     x = rd>0.05?0:800;
                     sx = (rd - 0.05)*(10)-(x-400)/400;

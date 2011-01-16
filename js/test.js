@@ -26,13 +26,13 @@ KISSY.ready(function(){
     var frame = function(){
         ctx.clearRect(0,0,800,600);
         if(bgloaded){
-            ctx.drawImage(bg,0,0);
+            ctx.drawImage(bg,(800-bg.width)/2, (600-bg.height)/2);
         }
         var x = offset[0],
             y = offset[1];
         fps.fps_call();
         ctx.fillStyle = "#fff";
-        ctx.fillText(fps.fps_value,10,10);
+        ctx.fillText("fps:"+fps.fps_value,10,10);
         effect.render(x,y);
     };
 
