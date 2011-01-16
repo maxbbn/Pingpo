@@ -28,6 +28,7 @@ Pingpo.add("pp~game",function(P){
         
         
         self._lagcy = [];
+        //@todo remove game in the param list
         self._screen = new P.view.Screen(this,"#J_Screen");
         self._cheat = this.getCheat();
         self.data = false;

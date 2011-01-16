@@ -1,36 +1,52 @@
 KISSY.app("Pingpo");
-KISSY.mix(Pingpo.Config,{
-        //kissybase : "http://localhost/svn/assets/lib/kissy/1.1.6/",
-        kissybase : "http://a.tbcdn.cn/s/kissy/1.1.6/",
-        srcbase   : "/pingpo/js/",
-        debug : true && console,
-        //wsserver : "ws://t-wenlong:12010"
-        wsserver : "ws://pc-game:12010"
-        //wsserver : "ws://192.168.1.198:12010"
-        //wsserver : "ws://localhost:12010"
-});
 
-Pingpo.add({
-    "pp~game" : {
-            fullpath : Pingpo.Config.srcbase + "game.js",
-            requires : ['pp~screen','pp~connction','pp~data',"pp~effect", "mod~netpanel"]
-    },
-    "pp~screen" : {
-            fullpath : Pingpo.Config.srcbase + "screen.js"
-    },
-    "pp~connction" : {
-            fullpath : Pingpo.Config.srcbase + "screen.js"
-    },
-    "pp~data" : {
-            fullpath : Pingpo.Config.srcbase + "data.js"
-    },
-    "pp~effect" : {
-            fullpath : Pingpo.Config.srcbase + "effect.js"
-    },
-    "pp~test" : {
-            fullpath : Pingpo.Config.srcbase + "test.js"
-    },
-    "mod~netpanel" : {
-            fullpath : Pingpo.Config.srcbase + "mod/mod~netpanel.js"
+Pingpo.add("app",function(P){
+    var S = KISSY;
+
+    S.mix(P.Config,{
+        loadpath : "js/",
+        debug : false && console,
+        wsurl : "auto"
+    });
+
+    function App(cfg){
+        S.mix(P.Config,cfg);
+        if(P.Config.wsurl == "auto"){
+            P.Config.wsurl = "ws://"+window.location.host+":12010";
+        }
+        P.Config.detect = {
+            canvas : typeof document.createElement("CANVAS").getContext,
+            audio : typeof Audio,
+            websoket : typeof WebSoket
+        };
+        var loadpath = P.Config.loadpath;
+        P.add({
+            "pp~game" : {
+                    fullpath : loadpath + "game.js",
+                    requires : ['pp~data',"pp~effect", "mod~netpanel","mod~fps",'pp~screen']
+            },
+            "pp~screen" : {
+                    fullpath : loadpath + "screen.js"
+            },
+            "pp~data" : {
+                    fullpath : loadpath + "data.js"
+            },
+            "pp~effect" : {
+                    fullpath : loadpath + "effect.js"
+            },
+            "pp~test" : {
+                    fullpath : loadpath + "test.js",
+                    requires : ['pp~effect',"mod~fps"]
+            },
+            "mod~netpanel" : {
+                    fullpath : loadpath + "mod~netpanel.js"
+            },
+            "mod~fps" : {
+                   fullpath : loadpath + "mod~fps.js"
+            }
+        });
     }
-});
+
+    P["App"] = App;
+
+})

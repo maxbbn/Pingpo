@@ -1,4 +1,5 @@
 <?php
+$domain = "192.168.1.197";
 if(isset($_GET["logout"])){
 	setcookie("u", "",time() - 3600*24*365);
 	include "mod/login.php";
@@ -8,7 +9,7 @@ if(isset($_GET["logout"])){
 		if(strlen($name) > 2){
 			$name = urlencode($name);
 			setcookie("u", $name, time() + 3600*24*365, "/");
-			$goto = "/svn/";
+			$goto = "/pingpo/";
 			include "mod/redirection.php";
 		}else {
 			$error = "you name please~";
@@ -18,7 +19,7 @@ if(isset($_GET["logout"])){
 		include "mod/login.php";
 	}
 }elseif (empty($_COOKIE['u'])){
-	$goto = "/svn/?login";
+	$goto = "/pingpo/?login";
 	include "mod/redirection.php";
 } else {
 	include "pingpong_game.htm";

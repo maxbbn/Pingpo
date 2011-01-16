@@ -1,8 +1,8 @@
 Pingpo.add("mod~fps",function(P){
     var S = KISSY,
-        mod = P.namespace("mod");
+        mods = P.namespace("mods");
     var fps = {
-        init : function(){
+        fps_init : function(){
             this.fps_value = 0;
             this.fps_last = new Date();
             this.fps_count = 0;
@@ -10,7 +10,7 @@ Pingpo.add("mod~fps",function(P){
         fps_call : function(){
             var self = this,
                 nowTime = new Date,
-                diffTime = Math.ceil(nowTime.getTime() - self.last.getTime());
+                diffTime = Math.ceil(nowTime.getTime() - self.fps_last.getTime());
             if(diffTime >= 1000){
                 self.fps_value = self.fps_count;
                 self.fps_count = 0;
@@ -19,6 +19,9 @@ Pingpo.add("mod~fps",function(P){
             self.fps_count ++;
         }
 
+    };
+    mods["fps"] = fps;
+    if(P.Config.Debug){
+        console.log("fps loaded")
     }
-    mod["fps"] = fps;
 });

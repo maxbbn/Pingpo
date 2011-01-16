@@ -4,10 +4,10 @@
 	<meta charset="UTF-8">
 	<title>home</title>
 	<link rel="stylesheet" href="http://a.tbcdn.cn/s/kissy/1.1.6/cssreset/reset-min.css" />
-	<link rel="stylesheet" href="http://localhost/svn/assets/game/css/bargame.css" />
+	<link rel="stylesheet" href="css/bargame.css" />
 	<script type="text/javascript" src="http://a.tbcdn.cn/s/kissy/1.1.6/kissy-min.js"></script>
-	<script type="text/javascript" src="http://localhost/svn/assets/game/js/src/app.js"></script>
-	<script type="text/javascript" src="http://localhost/svn/assets/game/js/src/test.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/test.js"></script>
 </head>
 
 <body>

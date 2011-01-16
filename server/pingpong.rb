@@ -1,4 +1,3 @@
-# 实现方法， 服务器定时发送数据给游游戏双方，游戏
 require "interval"
 require "ball"
 require "player"

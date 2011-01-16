@@ -1,5 +1,5 @@
-$LOAD_PATH << "d:/ruby/mylib"
-$LOAD_PATH << "."
+$LOAD_PATH << File.join(File.dirname(__FILE__), "lib")
+$LOAD_PATH << File.dirname(__FILE__)
 
 require "web_socket"
 require "thread"
