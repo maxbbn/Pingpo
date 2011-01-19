@@ -12,12 +12,11 @@ class Pingpong
         @barheight = params[:barheight]
         
         @players  = []
-        @interval = Interval.new(0.01);
+        @interval = Interval.new(1);
         @messageque = Queue.new
         @started = false
         @start_time = 0
-        
-        @ball     = Ball.new(self, params[:ballwidth])
+        @ball = Ball.new(self, params[:ballwidth])
     end
 
     def join (players)
@@ -52,11 +51,25 @@ class Pingpong
     def run
         @start_time = Time.now.to_i + 3
         @ball.init
+        sync_ball
         broadcast("pp:game_start");
         @runing = true
-        @interval.run{|idx|
-            frame
-        }
+        Thread.new do
+            sleep(3)
+            @started= true
+            broadcast("pp:start_in:0");
+            sync_ball
+            time = @ball.nexthittime
+            puts time
+            while !@ball.out?
+                sleep time
+                frame
+                time = @ball.nexthittime
+            end
+            broadcast("pp:ko:#{@ball.outside.id}")
+            end_game
+            puts "game end"
+        end
     end
 
     def end_game
@@ -64,27 +77,16 @@ class Pingpong
         @players.each{|p|
             p.init_for_game
         }
-        @interval.stop
         broadcast("pp:g_end");
     end
 
+    def sync_ball
+        broadcast("pp:f:#{@ball.x},#{@ball.y},#{@players[0].top},#{@players[1].top}")
+    end
+
     def frame
-        if(!@started)
-            remain = @start_time - Time.now.to_i
-            if remain > 0
-                broadcast("pp:start_in:#{remain}");
-            else
-                broadcast("pp:start_in:0");
-                @started = true
-            end
-        else
-            @ball.run
-        end
-        broadcast("pp:f:#{@ball.x},#{@ball.y},#{@players[0].top},#{@players[1].top},#{@ball.status}")
-        if @ball.out?
-            broadcast("pp:ko:#{@ball.outside.id}")
-            end_game
-        end
+        @ball.hitbar
+        sync_ball
     end
 
     def get_ready (player)
@@ -109,10 +111,4 @@ class Pingpong
             p.send(msg)
         }
     end
-
 end
-
-# pp = Pingpong.new(:width=>800,:height=>600, :barwidth=>10, :barheight=>20, :ball => Ball.new());
-
-# pp.add_player(Player.new)
-# pp.add_player(Player.new)

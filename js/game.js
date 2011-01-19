@@ -124,11 +124,12 @@ Pingpo.add("pp~game",function(P){
         _actions : {
             game_start : function(data){
                 var self = this;
-                
                 self.playing = true;
                 self._screen.start_init();
             },
             f : function(data){
+                console.log(data);
+                return;
                 data = data[2].split(",");
                 S.each(data,function(item,index){
                     if(item.length === 0) {
