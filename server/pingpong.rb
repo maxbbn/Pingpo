@@ -6,10 +6,10 @@ class Pingpong
     attr_reader :messageque,:players,:width,:height,:barwidth,:barheight,:started,:start_time
 
     def initialize(params)
-        @width    = params[:width]
-        @height   = params[:height]
-        @barwidth = params[:barwidth]
-        @barheight = params[:barheight]
+        @width    = params[:width].to_f
+        @height   = params[:height].to_f
+        @barwidth = params[:barwidth].to_f
+        @barheight = params[:barheight].to_f
         
         @players  = []
         @interval = Interval.new(1);
@@ -60,11 +60,11 @@ class Pingpong
             broadcast("pp:start_in:0");
             sync_ball
             time = @ball.nexthittime
-            puts time
             while !@ball.out?
                 sleep time
                 frame
                 time = @ball.nexthittime
+                puts time
             end
             broadcast("pp:ko:#{@ball.outside.id}")
             end_game

@@ -309,7 +309,7 @@ Pingpo.add("pp~screen",function(P){
             },
 
             _fgame : function(){
-                if(!this.game.data){return}
+                if(!this.game.playing){return}
                 var self = this,
                     data = self.game.data,
                     ctx = this.ctx,
@@ -321,7 +321,7 @@ Pingpo.add("pp~screen",function(P){
                     //ball status "ab"
                     //a : f not hit, 0 left, 1 right
                     //b : t hit edge/f not hit edge
-                    bs = data[4],
+                    //bs = data[4],
                     hitside = 0,
                     ball = size.ball,
                     themeImage = self.lib_image["THEME_IMAGE"],
@@ -330,25 +330,25 @@ Pingpo.add("pp~screen",function(P){
                     hitright = self.lib_audio["HIT_RIGHT"];
 
 
-                if(bs[1] != "f"){
-                    (bs[1] == "0")?hitleft.play():hitright.play();
-                }
+                //if(bs[1] != "f"){
+                    //(bs[1] == "0")?hitleft.play():hitright.play();
+                //}
 
-                if(bs[0] == 't'){
-                    a_hitedge.play();
-                }
+                //if(bs[0] == 't'){
+                    //a_hitedge.play();
+                //}
 
                 var hb = ball/2,
-                    ballx = data[0]/100 + hb,
-                    bally = data[1]/100 + hb;
+                    ballx = data.ballx,
+                    bally = data.bally;
 
                 //ctx.drawImage(themeImage,0,0,bw,bh,0,data[2],bw,bh);
                 //ctx.drawImage(themeImage,0,0,bw,bh,w - bw,data[3],bw,bh);
                 //ctx.drawImage(themeImage,15,0,ball,ball,ballx, bally,ball,ball);
                 //draw bars
                 ctx.fillStyle = "#0096FF";
-                ctx.fillRect(0,data[2],bw,bh);
-                ctx.fillRect(w-bw,data[3],bw,bh);
+                ctx.fillRect(0,data.bartop[0],bw,bh);
+                ctx.fillRect(w-bw,data.bartop[1],bw,bh);
                 //draw effect
                 self.effect.render(ballx, bally);
                 //draw ball

@@ -4,7 +4,6 @@ Pingpo.add("pp~game",function(P){
     
     P.Game = function(cfg){
         var self = this;
-        
         self.username = self.getUserName();
         /**
          * player's id 
@@ -12,26 +11,24 @@ Pingpo.add("pp~game",function(P){
          * @type {number}
          */
         self.uid = null;
-        
         /**
          * player's index of current game
          * @private 
          * @type {number}
          */
-        self.index; 
-        
+        self.index;
         /**
          * names of player
          * @type {array}
          */
         self.players = [];
-        
-        
         self._lagcy = [];
         //@todo remove game in the param list
         self._screen = new P.view.Screen(this,"#J_Screen");
         self._cheat = this.getCheat();
-        self.data = false;
+        self.data = {
+            bartop : [0,0]
+        };
         self.winwords = [
              "Win"
         ];
@@ -39,13 +36,8 @@ Pingpo.add("pp~game",function(P){
             "Fail!!"
         ];
         self._wsdata = new P.module.GameData(cfg.wsurl);
-        S.ready(function(){
-            
-        });
-        
         self._wsdata.on("open", self._connectionOpenHandle, self);
     };
-    
     S.mix(P.Game.prototype, {
         /**
          * Set Cheat Switch
@@ -96,7 +88,8 @@ Pingpo.add("pp~game",function(P){
          */
         _mouseHandler : function(e){
             if(!this._cheat){
-                this._wsdata.send("bartop", e.offsety);
+                //this._wsdata.send("bartop", e.offsety);
+                this.data.bartop[this.index] = e.offsety;
             }
         },
         /**
@@ -129,17 +122,19 @@ Pingpo.add("pp~game",function(P){
             },
             f : function(data){
                 console.log(data);
-                return;
                 data = data[2].split(",");
                 S.each(data,function(item,index){
                     if(item.length === 0) {
                         item = false;
                     }
                     if(index < 4){
-                        data[index] = parseInt(item);
+                        data[index] = parseFloat(item);
                     }
                 });
-                this.data = data;
+                S.mix(this.data,{
+                    ballx : data[0],
+                    bally : data[1]
+                });
                 if(this._cheat){
                     this._wsdata.send("bartop",Math.round(data[1]/100));
                 }
@@ -152,7 +147,8 @@ Pingpo.add("pp~game",function(P){
                 var self = this;
                 self.players = [];
                 self.index = null;
-                self._screen.init_players(-1);
+                //self._screen.
+                //init_players(-1);
                 self._screen.init_ready(-1);
             },
             p_accepted : function(data){

@@ -2,32 +2,32 @@ require "complex"
 
 class Ball
     attr_reader :width, :outside
-    
-    
     @@k = 1
     @@levelstep = 5
     @@speedup_duration = 10
-    
+
     def initialize(game, width = 20 )
-        @width = width
+        @width = width.to_f
         @game = game
         @outside = nil
         @bondry = {
-            :left => @game.barwidth,
-            :right => @game.width - @game.barwidth - @width,
-            :top => 0,
-            :bottom => @game.height - @width
+            :left => @game.barwidth + @width/2,
+            :right => @game.width - @game.barwidth - @width/2,
+            :top => @width/2,
+            :bottom => @game.height - @width/2,
+            :height => @game.height - @width,
+            :width => @game.width - @game.barwidth * 2 - @width
         }
     end
-    
-    def x 
-        (@position[0]*100).round
+
+    def x
+        @position[0]
     end
-    
+
     def y
-        (@position[1]*100).round
+        @position[1]
     end
-    
+
     def status
         #获取每一帧的状态码 
         # [t|f][f|0|1]
@@ -35,12 +35,11 @@ class Ball
         @hitbar = false
         hitbar.to_s
     end
-    
-    
+
     def init
         w = @bondry[:right]
         h = @bondry[:right]
-        @position = [w / 2 - @width/2, h/2 - @width/2]
+        @position = [@bondry[:left] + @bondry[:width]/2, @bondry[:top] + @bondry[:height]/2]
         @out = false
         @hitbar = false
         @round = 0; #回合
@@ -54,18 +53,18 @@ class Ball
             else arg
         end
         speedC = Complex.polar(100.0,arg)
-        @speedupTime = @game.start_time + @@speedup_duration
+        #@speedupTime = @game.start_time + @@speedup_duration
         @speed = [speedC.real,speedC.image]
-        puts "speed #{@speed[0]}  #{@speed[1]}"
         @game.broadcast "pp:score:#{@score}"
     end
 
     def nexthittime
-        if @speed[0] > 0 then
-            (@bondry[:right] - @position[0]) / @speed[0]
-        else
-            (@bondry[:left] - @position[0]) / @speed[0]
-        end
+        puts "speed #{@speed[0]}  #{@speed[1]}"
+        @start = Time.now.to_i
+        b = @speed[0]>0 ? @bondry[:right] : @bondry[:left]
+        duration = (b - @position[0]) / @speed[0]
+        pust "#{start} #{duration}"
+        return duration
     end
     def speedup
         now = Time.now.to_i
@@ -86,10 +85,26 @@ class Ball
     end
     
     def hitbar
-        puts "hitbar"
-        return
         player = nil
         side = nil
+        now = Time.new.to_i
+        duation = now - @start
+        h = @bondry[:bottom]
+        @position[0] = @position[0] + @speed[0]*duation
+        @position[1] = @position[1] + @speed[1]*duation
+        p1 = @position[1].abs
+        p2 = p1/h
+        r = p2.to_i
+        if(r%2 == 1)
+            p2 = 1 + r - p2
+        else
+            p2 = p2 - r
+        end
+        @position[1] = p2*h
+        @position[1] = @position[1].abs
+        @start = now
+        @speed[0] *= -1
+        return
         if  @speed[0] > 0 && @position[0] > @bondry[:right]
             player = @game.players[1]
             side  = :right
@@ -112,5 +127,4 @@ class Ball
             end
         end
     end
-    
 end
